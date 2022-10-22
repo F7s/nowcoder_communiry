@@ -1,8 +1,10 @@
 package com.lzh.community;
 
+import com.lzh.community.dao.CommentMapper;
 import com.lzh.community.dao.DiscussPostMapper;
 import com.lzh.community.dao.LoginTicketMapper;
 import com.lzh.community.dao.UserMapper;
+import com.lzh.community.entity.Comment;
 import com.lzh.community.entity.DiscussPost;
 import com.lzh.community.entity.LoginTicket;
 import com.lzh.community.entity.User;
@@ -27,6 +29,9 @@ public class MapperTests {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Test
     public void testSelectUser() {
@@ -97,6 +102,20 @@ public class MapperTests {
         System.out.println(abc);
 
         loginTicketMapper.updateStatus("abc",1);
+    }
+
+    @Test
+    public void testSelectCommentsByEntity() {
+        List<Comment> comments = commentMapper.selectCommentsByEntity(1, 270, 0, 10);
+        for (Comment c : comments) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    public void testSelectCountByEntity() {
+        int i = commentMapper.selectCountByEntity(1, 270);
+        System.out.println(i);
     }
 
 }

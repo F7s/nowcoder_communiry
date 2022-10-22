@@ -1,5 +1,6 @@
 package com.lzh.community.controller;
 
+import com.lzh.community.util.CommunityUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,15 @@ public class AlphaController {
         String qwr = (String)session.getAttribute("qwe");
         System.out.println(qwr);
         return "看控制台";
+    }
+
+    //ajax示例
+    @RequestMapping(path = "/ajax", method = RequestMethod.POST)
+    @ResponseBody
+    public String testAjax(String name, int age) {
+        System.out.println(name);
+        System.out.println(age);
+        return CommunityUtil.getJSONString(0,"操作成功");
     }
 
 }
