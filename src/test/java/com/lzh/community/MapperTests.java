@@ -1,13 +1,7 @@
 package com.lzh.community;
 
-import com.lzh.community.dao.CommentMapper;
-import com.lzh.community.dao.DiscussPostMapper;
-import com.lzh.community.dao.LoginTicketMapper;
-import com.lzh.community.dao.UserMapper;
-import com.lzh.community.entity.Comment;
-import com.lzh.community.entity.DiscussPost;
-import com.lzh.community.entity.LoginTicket;
-import com.lzh.community.entity.User;
+import com.lzh.community.dao.*;
+import com.lzh.community.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +26,9 @@ public class MapperTests {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser() {
@@ -116,6 +113,28 @@ public class MapperTests {
     public void testSelectCountByEntity() {
         int i = commentMapper.selectCountByEntity(1, 270);
         System.out.println(i);
+    }
+
+    @Test
+    public void testSelectLetters() {
+        List<Message> messages = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : messages) {
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        List<Message> messages1 = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message message : messages1) {
+            System.out.println(message);
+        }
+
+        int count1 = messageMapper.selectLetterCount("111_112");
+        System.out.println(count1);
+
+        int count2 = messageMapper.selectLetterUnreadCount(131, "111_131");
+        System.out.println(count2);
     }
 
 }
